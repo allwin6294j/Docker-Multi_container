@@ -10,16 +10,21 @@ script:
 
 after_success:
 
-  - docker build -t multi-container/client ./client
-  - docker build -t multi-container/server ./server
-  - docker build -t multi-container/nginx ./nginx
-  - docker build -t multi-container/worker ./worker
+  - docker build -t client ./client
+  - docker build -t server ./server
+  - docker build -t nginx ./nginx
+  - docker build -t worker ./worker
   # Log into Docker CLI
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push the builded images into Docker hub
 
-  - docker push multi-container/client
-  - docker push multi-container/server
-  - docker push multi-container/nginx
-  - docker push multi-container/worker
+  - docker tag client allwinlogan/client
+  - docker tag server allwinlogan/server
+  - docker tag nginx allwinlogan/nginx
+  - docker tag worker allwinlogan/worker
+
+  - docker push allwinlogan/client
+  - docker push allwinlogan/server
+  - docker push allwinlogan/nginx
+  - docker push allwinlogan/worker
