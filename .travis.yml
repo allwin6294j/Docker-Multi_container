@@ -28,3 +28,17 @@ after_success:
   - docker push allwinlogan/server
   - docker push allwinlogan/nginx
   - docker push allwinlogan/worker
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-south-1
+  app: Multi-Container
+  env: MultiContainer-env
+  bucket_name: elasticbeanstalk-ap-south-1-878963179285
+  bucket_path: multi-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
